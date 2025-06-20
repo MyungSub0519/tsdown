@@ -46,6 +46,10 @@ export async function build(userOptions: Options = {}): Promise<void> {
     logger.setSilent(userOptions.silent)
   }
 
+  if (typeof userOptions.warningsAsErrors === 'boolean') {
+    logger.setWarningsAsErrors(userOptions.warningsAsErrors)
+  }
+
   const { configs, files: configFiles } = await resolveOptions(userOptions)
 
   let cleanPromise: Promise<void> | undefined

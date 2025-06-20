@@ -4,9 +4,14 @@ import type { InternalModuleFormat } from 'rolldown'
 
 export class Logger {
   silent: boolean = false
+  warningsAsErrors: boolean = false
 
   setSilent(value: boolean): void {
     this.silent = value
+  }
+
+  setWarningsAsErrors(value: boolean): void {
+    this.warningsAsErrors = value
   }
 
   filter(...args: any[]): any[] {
@@ -20,6 +25,9 @@ export class Logger {
   }
 
   warn(...args: any[]): void {
+    if (this.warningsAsErrors) {
+      throw new Error(`${bgYellow` WARN `} ${this.filter(...args).join(' ')}\n`)
+    }
     if (!this.silent) {
       console.warn('\n', bgYellow` WARN `, ...this.filter(...args), '\n')
     }
@@ -27,7 +35,7 @@ export class Logger {
 
   error(...args: any[]): void {
     if (!this.silent) {
-      console.error('\n', bgRed` ERROR `, ...this.filter(...args), '\n')
+      console.warn('\n', bgRed` ERROR `, ...this.filter(...args), '\n')
     }
   }
 

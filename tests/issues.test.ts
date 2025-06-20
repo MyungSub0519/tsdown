@@ -117,4 +117,33 @@ describe('issues', () => {
       },
     })
   })
+
+  test.only('#322', async (context) => {
+    const content = `console.log("Hello, world!")`
+    const { snapshot } = await testBuild({
+      context,
+      files: {
+        'index.ts': content,
+      },
+      options: {
+        bundle: true,
+      },
+    })
+    expect(snapshot).contain(content)
+  })
+
+  test.only.fails('#322 with Warnings-As-Errors option', async (context) => {
+    const content = `console.log("Hello, world!")`
+    const { snapshot } = await testBuild({
+      context,
+      files: {
+        'index.ts': content,
+      },
+      options: {
+        bundle: true, // make warn message
+        warningsAsErrors: true,
+      },
+    })
+    expect(snapshot).contain(content)
+  })
 })

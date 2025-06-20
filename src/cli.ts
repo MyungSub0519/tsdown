@@ -59,8 +59,10 @@ cli
     '--exports',
     'Generate export-related metadata for package.json (experimental)',
   )
+  .option('--warnings-as-errors', 'Treat warnings as build errors')
   .action(async (input: string[], flags: Options) => {
     logger.setSilent(!!flags.silent)
+    logger.setWarningsAsErrors(!!flags.warningsAsErrors)
     logger.info(
       `tsdown ${dim`v${version}`} powered by rolldown ${dim`v${rolldownVersion}`}`,
     )

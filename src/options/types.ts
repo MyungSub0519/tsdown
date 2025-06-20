@@ -340,6 +340,8 @@ export interface Options {
    * Filter workspace packages. This option is only available in workspace mode.
    */
   filter?: RegExp | string | string[]
+
+  warningsAsErrors?: boolean
 }
 
 /**

@@ -310,6 +310,7 @@ async function resolveConfig(
     noExternal,
     exports,
     unbundle,
+    warningsAsErrors: userConfig.warningsAsErrors || false,
   }
 
   return config
